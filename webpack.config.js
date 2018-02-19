@@ -1,7 +1,7 @@
 module.exports = {
   entry: './src/js/index.js',
   output: {
-    filename: './public/build/bundle.js',
+    filename: './bundle.js',
   },
   module: {
     loaders: [
