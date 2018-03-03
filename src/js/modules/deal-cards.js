@@ -1,9 +1,11 @@
 const dealCards = (arr) => {
   const state = {
-    sam: [arr[0], arr[2]],
-    dealer: [arr[1], arr[3]],
+    sam: [arr.shift(), arr.shift()],
+    dealer: [arr.shift(), arr.shift()],
   };
   return state;
 };
 
-export default dealCards;
+const dealOneCard = arr => arr.shift();
+
+export { dealCards, dealOneCard };
