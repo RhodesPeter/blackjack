@@ -1,18 +1,16 @@
 import shuffleDeck from './modules/shuffle-deck';
 import { dealCards, dealOneCard } from './modules/deal-cards';
 
-let samsSecondMove = '';
-let dealersSecondMove = '';
+let makeOneMove = '';
 
-const logInitialMove = (initialCards) => {
-  console.log(`Sam: ${initialCards.sam.join(', ')}`);
-  console.log(`Dealer: ${initialCards.dealer.join(', ')}`);
+const logPlayerCards = (cardsInPlay) => {
+  console.log(`Sam: ${cardsInPlay.sam.join(', ')}`);
+  console.log(`Dealer: ${cardsInPlay.dealer.join(', ')}`);
 };
 
-const logTotal = (total) => {
-  console.log(' ');
-  console.log(`Sam's total: ${total[0]}`);
-  console.log(`Dealer's total: ${total[1]} \n`);
+const logTotal = (sam, dealer) => {
+  console.log(`\nSam's total: ${sam}`);
+  console.log(`Dealer's total: ${dealer} \n`);
 };
 
 const score = {
@@ -27,61 +25,52 @@ const totaliser = (cards) => {
   return mapped.reduce((a, b) => (score[a] || Number(a)) + (score[b] || Number(b)), 0);
 };
 
-const evaluateCards = (initialCards, gameDeck) => {
-  const sam = totaliser(initialCards.sam);
-  const dealer = totaliser(initialCards.dealer);
-
-  logTotal([sam, dealer]);
-
-  if (sam > 21) {
-    console.log("Sam's total is greater than 21, Dealer wins!");
-    return;
+const hasWon = (sam, dealer) => {
+  if ((sam === 21 && dealer === 21) || (sam > 21 && dealer > 21)) {
+    return "It's a draw";
+  } else if (sam > 21) {
+    return "Sam's total is greater than 21, Dealer wins!";
   } else if (dealer > 21) {
-    console.log("Dealers's total is greater than 21, Sam wins!");
-    return;
+    return "Dealers's total is greater than 21, Sam wins!";
+  } else if (sam === 21) {
+    return 'Sam wins!';
+  } else if (dealer === 21) {
+    return 'Dealer wins!';
+  } else if (sam >= 17 && dealer > sam) {
+    return 'Dealer wins!';
   }
+  return false;
+};
 
-  if (sam === 21 || dealer === 21) {
-    let winner = "It's a draw";
-    if (sam === 21 && dealer !== 21) {
-      winner = 'Sam wins!';
-    } else if (dealer === 21 && sam !== 21) {
-      winner = 'Dealer wins!';
-    }
-    console.log(winner);
-    return;
-  }
+const gameLoop = (cardsInPlay, gameDeck) => {
+  const sam = totaliser(cardsInPlay.sam);
+  const dealer = totaliser(cardsInPlay.dealer);
+  const playerWon = hasWon(sam, dealer);
 
-  if (sam >= 17) {
-    if (dealer > sam) {
-      console.log('Dealer wins!');
-      return;
-    }
-    dealersSecondMove(initialCards, gameDeck);
+  logPlayerCards(cardsInPlay);
+  logTotal(sam, dealer);
+
+  if (playerWon) {
+    console.log(playerWon);
+  } else if (sam < 17) {
+    makeOneMove('sam', cardsInPlay, gameDeck);
   } else {
-    samsSecondMove(initialCards, gameDeck);
+    makeOneMove('dealer', cardsInPlay, gameDeck);
   }
 };
 
-samsSecondMove = (initialCards, gameDeck) => {
-  initialCards.sam.push(dealOneCard(gameDeck));
-  logInitialMove(initialCards);
-  evaluateCards(initialCards, gameDeck);
-};
-
-dealersSecondMove = (initialCards, gameDeck) => {
-  initialCards.dealer.push(dealOneCard(gameDeck));
-  logInitialMove(initialCards);
-  evaluateCards(initialCards, gameDeck);
+makeOneMove = (player, cardsInPlay, gameDeck) => {
+  const nextCard = dealOneCard(gameDeck);
+  cardsInPlay[player].push(nextCard);
+  gameLoop(cardsInPlay, gameDeck);
 };
 
 const startGame = () => {
-  console.log('Game started \n');
-
   const gameDeck = shuffleDeck();
-  const initialCards = dealCards(gameDeck);
-  logInitialMove(initialCards);
-  evaluateCards(initialCards, gameDeck);
+  const cardsInPlay = dealCards(gameDeck);
+
+  console.log('Game started \n');
+  gameLoop(cardsInPlay, gameDeck);
 };
 
 startGame();
