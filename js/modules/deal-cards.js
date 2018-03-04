@@ -1,9 +1,9 @@
 const dealCards = (arr) => {
-  const state = {
+  const playerCards = {
     sam: [arr.shift(), arr.shift()],
     dealer: [arr.shift(), arr.shift()],
   };
-  return state;
+  return playerCards;
 };
 
 const dealOneCard = arr => arr.shift();

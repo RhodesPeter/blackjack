@@ -1,7 +1,9 @@
+import createDeck from './modules/create-deck';
 import shuffleDeck from './modules/shuffle-deck';
+import totaliser from './modules/totaliser';
 import { dealCards, dealOneCard } from './modules/deal-cards';
 
-let makeOneMove = '';
+let makeOneMove;
 
 const logPlayerCards = (cardsInPlay) => {
   console.log(`Sam: ${cardsInPlay.sam.join(', ')}`);
@@ -11,18 +13,6 @@ const logPlayerCards = (cardsInPlay) => {
 const logTotal = (sam, dealer) => {
   console.log(`\nSam's total: ${sam}`);
   console.log(`Dealer's total: ${dealer} \n`);
-};
-
-const score = {
-  J: 10,
-  K: 10,
-  Q: 10,
-  A: 11,
-};
-
-const totaliser = (cards) => {
-  const mapped = cards.map(a => a.split(' ')[0]);
-  return mapped.reduce((a, b) => (score[a] || Number(a)) + (score[b] || Number(b)), 0);
 };
 
 const hasWon = (sam, dealer) => {
@@ -66,7 +56,8 @@ makeOneMove = (player, cardsInPlay, gameDeck) => {
 };
 
 const startGame = () => {
-  const gameDeck = shuffleDeck();
+  const deck = createDeck();
+  const gameDeck = shuffleDeck(deck);
   const cardsInPlay = dealCards(gameDeck);
 
   console.log('Game started \n');
