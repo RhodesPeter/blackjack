@@ -2,7 +2,7 @@ import logPlayerCards from '../js/modules/log-player-cards';
 
 const test = require('tape');
 
-test('logPlayerCards function returns the correct winner', (t) => {
+test('logPlayerCards function returns the correct string', (t) => {
   const testObj = {
     sam: ['7 Clubs', 'J Heart'],
     dealer: ['2 Clubs', '5 Spades', '3 Heart'],
