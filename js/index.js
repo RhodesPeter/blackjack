@@ -1,44 +1,20 @@
 import createDeck from './modules/create-deck';
 import shuffleDeck from './modules/shuffle-deck';
 import totaliser from './modules/totaliser';
+import logPlayerCards from './modules/log-player-cards';
+import hasWon from './modules/has-won';
+import logTotal from './modules/log-total';
 import { dealCards, dealOneCard } from './modules/deal-cards';
 
 let makeOneMove;
-
-const logPlayerCards = (cardsInPlay) => {
-  console.log(`Sam: ${cardsInPlay.sam.join(', ')}`);
-  console.log(`Dealer: ${cardsInPlay.dealer.join(', ')}`);
-};
-
-const logTotal = (sam, dealer) => {
-  console.log(`\nSam's total: ${sam}`);
-  console.log(`Dealer's total: ${dealer} \n`);
-};
-
-const hasWon = (sam, dealer) => {
-  if ((sam === 21 && dealer === 21) || (sam > 21 && dealer > 21)) {
-    return "It's a draw";
-  } else if (sam > 21) {
-    return "Sam's total is greater than 21, Dealer wins!";
-  } else if (dealer > 21) {
-    return "Dealers's total is greater than 21, Sam wins!";
-  } else if (sam === 21) {
-    return 'Sam wins!';
-  } else if (dealer === 21) {
-    return 'Dealer wins!';
-  } else if (sam >= 17 && dealer > sam) {
-    return 'Dealer wins!';
-  }
-  return false;
-};
 
 const gameLoop = (cardsInPlay, gameDeck) => {
   const sam = totaliser(cardsInPlay.sam);
   const dealer = totaliser(cardsInPlay.dealer);
   const playerWon = hasWon(sam, dealer);
 
-  logPlayerCards(cardsInPlay);
-  logTotal(sam, dealer);
+  console.log(logPlayerCards(cardsInPlay));
+  console.log(logTotal(sam, dealer));
 
   if (playerWon) {
     console.log(playerWon);
