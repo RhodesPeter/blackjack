@@ -9,6 +9,7 @@ test('hasWon function returns the correct winner', (t) => {
   t.equal(hasWon(2, 22), "Dealers's total is greater than 21, Sam wins!", '(2, 22) should return ...Sam wins');
   t.equal(hasWon(21, 2), 'Sam wins!', '(21, 2) should return ...Sam wins');
   t.equal(hasWon(2, 21), 'Dealer wins!', '(2, 21) should return ...Dealer wins');
+  t.equal(hasWon(17, 20), 'Dealer wins!', '(17, 20) should return ...Dealer wins');
 
   t.end();
 });
