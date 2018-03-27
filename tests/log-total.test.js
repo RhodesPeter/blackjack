@@ -2,7 +2,7 @@ import logTotal from '../js/modules/log-total';
 
 const test = require('tape');
 
-test('logTotal function returns players totals', (t) => {
+test("logTotal function returns player's totals", (t) => {
   const testStr = "\nSam's total: 17\nDealer's total: 10 \n";
   t.equal(logTotal(17, 10), testStr, "Sam's total: 17, Dealer's total: 10");
 
