@@ -12,4 +12,4 @@
 
 `npm run report` to view test coverage.
 
-![Program example][https://github.com/RhodesPeter/blackjack/blob/master/assets/readme-example.png]
+![Program example](https://github.com/RhodesPeter/blackjack/blob/master/assets/readme-example.png])
