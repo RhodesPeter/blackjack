@@ -9,3 +9,5 @@
 `node bundle.js` to run script.
 
 `npm run test` to run tape tests.
+
+`npm run report` to view test coverage.
