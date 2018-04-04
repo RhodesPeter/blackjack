@@ -11,3 +11,5 @@
 `npm run test` to run tape tests.
 
 `npm run report` to view test coverage.
+
+![Program example][https://github.com/RhodesPeter/blackjack/blob/master/assets/readme-example.png]
